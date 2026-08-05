@@ -103,7 +103,9 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: fluid
+## 主題的設定寫在根目錄的 _config.fluid.yml,不要去改 themes/ 或 node_modules 裡的檔案,
+## 這樣主題升級時你的設定才不會被覆蓋。
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

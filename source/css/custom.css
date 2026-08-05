@@ -1,0 +1,170 @@
+/* ============================================================
+   自訂樣式
+   透過 _config.fluid.yml 的 custom_css 載入,不會動到主題原始碼。
+   ============================================================ */
+
+/* ---------- 作品集卡片網格 ---------- */
+
+.pf-grid {
+  display: grid;
+  /* 卡片最小 280px,空間夠就自動排更多欄,不用寫 media query */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.pf-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--pf-card-bg, #fff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 6px 20px rgba(0, 0, 0, .04);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.pf-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .1), 0 12px 32px rgba(0, 0, 0, .1);
+}
+
+/* featured 作品在寬螢幕時橫跨兩欄 */
+@media (min-width: 900px) {
+  .pf-card--featured {
+    grid-column: span 2;
+  }
+
+  .pf-card--featured .pf-cover {
+    padding-top: 40%;
+  }
+}
+
+.pf-cover {
+  position: relative;
+  padding-top: 56.25%;   /* 16:9 */
+  background-size: cover;
+  background-position: center;
+  background-color: #e9ecef;
+}
+
+/* 沒有封面圖時的替代顯示 */
+.pf-cover--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+  min-height: 150px;
+  background: linear-gradient(135deg, #6a8caf 0%, #3f5c78 100%);
+}
+
+.pf-cover--empty span {
+  padding: 0 1rem;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: center;
+  opacity: .95;
+}
+
+.pf-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.1rem 1.25rem 1.25rem;
+}
+
+.pf-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem;
+  margin: 0 0 .35rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.pf-year {
+  flex-shrink: 0;
+  color: var(--pf-muted, #8a9199);
+  font-size: .8rem;
+  font-weight: 400;
+}
+
+.pf-role {
+  margin: 0 0 .6rem;
+  color: var(--pf-muted, #8a9199);
+  font-size: .82rem;
+  letter-spacing: .02em;
+}
+
+.pf-desc {
+  flex: 1;
+  margin: 0 0 .9rem;
+  font-size: .92rem;
+  line-height: 1.65;
+}
+
+.pf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: 0 0 .9rem;
+  padding: 0;
+  list-style: none;
+}
+
+.pf-tags li {
+  padding: .18rem .55rem;
+  border-radius: 999px;
+  background: var(--pf-tag-bg, #eef1f4);
+  color: var(--pf-tag-fg, #5a636b);
+  font-size: .74rem;
+  line-height: 1.5;
+}
+
+.pf-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: auto;
+}
+
+.pf-link {
+  padding: .35rem .85rem;
+  border: 1px solid var(--pf-link-border, #d3d9df);
+  border-radius: 6px;
+  font-size: .85rem;
+  text-decoration: none !important;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.pf-link:hover {
+  border-color: currentColor;
+  background: var(--pf-link-hover-bg, #f2f5f8);
+}
+
+.pf-empty {
+  padding: 2rem 0;
+  color: var(--pf-muted, #8a9199);
+  text-align: center;
+}
+
+/* ---------- 深色模式 ----------
+   Fluid 切換深色模式時會在 <html> 加上 data-user-color-scheme="dark" */
+[data-user-color-scheme="dark"] {
+  --pf-card-bg: #23272b;
+  --pf-muted: #8b939b;
+  --pf-tag-bg: #31363b;
+  --pf-tag-fg: #b3bac1;
+  --pf-link-border: #3d444b;
+  --pf-link-hover-bg: #2c3136;
+}
+
+[data-user-color-scheme="dark"] .pf-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 6px 20px rgba(0, 0, 0, .25);
+}
+
+[data-user-color-scheme="dark"] .pf-card:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .5), 0 12px 32px rgba(0, 0, 0, .35);
+}
