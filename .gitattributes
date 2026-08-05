@@ -1,0 +1,14 @@
+# 統一換行符號,避免 Windows 與 CI(Linux)之間出現整檔差異
+* text=auto eol=lf
+
+# 二進位檔不要做換行轉換
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary
+*.zip binary
