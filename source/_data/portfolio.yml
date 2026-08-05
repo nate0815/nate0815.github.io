@@ -7,7 +7,7 @@
 #    desc     必填  一到兩句話的簡介
 #    cover    選填  封面圖,放在 source/img/portfolio/ 底下
 #                   例如放了 mygame.png 就寫 /img/portfolio/mygame.png
-#                   留空的話會顯示純色底 + 作品名稱
+#                   留空的話會顯示漸層底 + 作品名稱
 #    year     選填  年份,顯示在卡片角落
 #    role     選填  你在這個專案的角色
 #    tags     選填  技術/類型標籤,會顯示成小圓角標籤
@@ -16,38 +16,32 @@
 #    featured 選填  設 true 會排在最前面並加寬顯示
 #
 #  ⚠️ YAML 格式提醒:縮排一律用「空格」不要用 Tab,
-#     冒號後面要留一個空格。改完存檔後跑 npx hexo server 就能看到。
+#     冒號後面要留一個空格。改完存檔後重新整理瀏覽器就能看到。
 # ============================================================
 
-- title: 舔壽司的好日子
-  desc: GMTK Game Jam 2025 參賽作品。48 小時內完成的小品遊戲,主題是「Loop」。
-  cover:
-  year: 2025
-  role: programming / game design
-  featured: true
-  tags:
-    - Unity
-    - C#
-    - Game Jam
-  links:
-    - { text: "遊玩", url: "https://example.itch.io/" }
-    - { text: "原始碼", url: "https://github.com/nate0815" }
-
-- title: 範例作品二
-  desc: 這是一個範例。把它改成你的第二個作品,或整段刪掉。
+# 👇 這是佔位用的空白卡片。填上你第一個作品之後,把 title/desc 改掉即可。
+#    暫時不想顯示任何東西的話,把下面整段刪掉,頁面會顯示「還沒有作品」。
+- title: 作品準備中
+  desc: 這張是佔位卡片。把它改成你的第一個作品,或整段刪掉。
   cover:
   year: 2026
-  role: solo dev
-  tags:
-    - Unity
-    - 2D
-  links:
-    - { text: "了解更多", url: "/posts/hello-world/" }
-
-- title: 範例作品三
-  desc: 沒有封面圖的話,卡片會顯示漸層底色加上作品名稱,一樣好看。
-  cover:
-  year: 2026
-  tags:
-    - 實驗性
+  tags: []
   links: []
+
+
+# ------------------------------------------------------------
+# 👇 複製下面這段模板來新增作品(記得把最前面的 # 都拿掉)
+#
+# - title: 作品名稱
+#   desc: 一兩句話說明這是什麼、你做了什麼。
+#   cover: /img/portfolio/檔名.png
+#   year: 2026
+#   role: solo dev
+#   featured: true
+#   tags:
+#     - Unity
+#     - C#
+#   links:
+#     - { text: "遊玩", url: "https://你的帳號.itch.io/遊戲" }
+#     - { text: "原始碼", url: "https://github.com/nate0815/專案" }
+# ------------------------------------------------------------
