@@ -105,6 +105,33 @@ gh api -X PUT repos/nate0815/nate0815.github.io/pages -f build_type=workflow
 
 若日後掛 `na23.dev`,CNAME 檔必須放在 **`source/CNAME`**(內容就一行網域名)。放在 `public/` 會每次 build 被清掉。
 
+**外連圖片會無聲失敗**
+
+若把圖放在別的 repo 用 `raw.githubusercontent.com` 外連,來源檔被改名/刪除/轉 private 時,`hexo generate` **仍會成功**,只是網頁上變成破圖。本專案規定圖片一律隨文章存放,理由與例外見 [DESIGN.md 第 6 節](DESIGN.md#圖片資產)。
+
+---
+
+## 3.5 平台額度
+
+GitHub Pages(2026-08 查證):
+
+| 項目 | 限制 |
+|---|---|
+| 發布後站台大小 | 1 GB |
+| 每月流量 | 100 GB(軟上限) |
+| repo 建議大小 | 1 GB |
+| 單次部署逾時 | 10 分鐘 |
+| 每小時 build 次數 | 10 次(**使用自訂 Actions workflow 時不適用**,本站屬此類) |
+
+實測資源快取標頭:
+
+| 來源 | `Cache-Control` |
+|---|---|
+| `raw.githubusercontent.com` | `max-age=300` |
+| `nate0815.github.io`(Pages) | `max-age=600` |
+
+超出流量軟上限時 GitHub 的處置依 [Acceptable Use Policies](https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies) 第 9 條:「保留暫停帳號、限制檔案託管或限制活動的權利」。以本站規模不會接近,但這是為什麼圖片壓縮被列為硬性規格。
+
 ---
 
 ## 4. 常用指令
@@ -178,6 +205,8 @@ permissions:
 - **用 Actions 部署 Pages** — https://docs.github.com/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 - **actions/deploy-pages** — https://github.com/actions/deploy-pages
 - **設定自訂網域** — https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site
+- **GitHub Pages 使用限制(容量/流量)** — https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
+- **GitHub 使用條款(流量限制條款)** — https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies
 
 ### 之後可能會用到
 
