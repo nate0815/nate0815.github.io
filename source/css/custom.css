@@ -7,9 +7,9 @@
 
 .pf-grid {
   display: grid;
-  /* 卡片最小 280px,空間夠就自動排更多欄,不用寫 media query。
-     min(280px, 100%) 是為了螢幕比 280px 還窄時不會撐出水平捲軸 */
-  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  /* 卡片最小 240px,空間夠就自動排更多欄,不用寫 media query。
+     min(240px, 100%) 是為了螢幕比 240px 還窄時不會撐出水平捲軸 */
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
   gap: 1.5rem;
   margin: 2rem 0;
 }
@@ -19,7 +19,8 @@
   flex-direction: column;
   overflow: hidden;
   border-radius: 12px;
-  background: var(--pf-card-bg, #fff);
+  background: var(--pf-card-bg, #fffdf5);
+  border: 1px solid var(--pf-card-border, #e3dfc4);
   box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 6px 20px rgba(0, 0, 0, .04);
   transition: transform .25s ease, box-shadow .25s ease;
 }
@@ -45,10 +46,10 @@
 
 .pf-cover {
   position: relative;
-  padding-top: 56.25%;   /* 16:9 */
+  padding-top: 79.37%;   /* 630:500,itch.io 封面的原始比例,整張不裁切 */
   background-size: cover;
   background-position: center;
-  background-color: #e9ecef;
+  background-color: #e8e5d2;
 }
 
 /* 沒有封面圖時的替代顯示 */
@@ -58,7 +59,7 @@
   justify-content: center;
   padding-top: 0;
   min-height: 150px;
-  background: linear-gradient(135deg, #6a8caf 0%, #3f5c78 100%);
+  background: linear-gradient(135deg, #6b6f8c 0%, #4a4e69 100%);
 }
 
 .pf-cover--empty span {
@@ -90,14 +91,14 @@
 
 .pf-year {
   flex-shrink: 0;
-  color: var(--pf-muted, #8a9199);
+  color: var(--pf-muted, #666982);
   font-size: .8rem;
   font-weight: 400;
 }
 
 .pf-role {
   margin: 0 0 .6rem;
-  color: var(--pf-muted, #8a9199);
+  color: var(--pf-muted, #666982);
   font-size: .82rem;
   letter-spacing: .02em;
 }
@@ -121,8 +122,8 @@
 .pf-tags li {
   padding: .18rem .55rem;
   border-radius: 999px;
-  background: var(--pf-tag-bg, #eef1f4);
-  color: var(--pf-tag-fg, #5a636b);
+  background: var(--pf-tag-bg, #ece8d0);
+  color: var(--pf-tag-fg, #5c5f78);
   font-size: .74rem;
   line-height: 1.5;
 }
@@ -136,7 +137,7 @@
 
 .pf-link {
   padding: .35rem .85rem;
-  border: 1px solid var(--pf-link-border, #d3d9df);
+  border: 1px solid var(--pf-link-border, #dad4aa);
   border-radius: 6px;
   font-size: .85rem;
   text-decoration: none !important;
@@ -145,12 +146,12 @@
 
 .pf-link:hover {
   border-color: currentColor;
-  background: var(--pf-link-hover-bg, #f2f5f8);
+  background: var(--pf-link-hover-bg, #f4f1de);
 }
 
 .pf-empty {
   padding: 2rem 0;
-  color: var(--pf-muted, #8a9199);
+  color: var(--pf-muted, #666982);
   text-align: center;
 }
 
@@ -170,12 +171,13 @@
 /* ---------- 深色模式 ----------
    Fluid 切換深色模式時會在 <html> 加上 data-user-color-scheme="dark" */
 [data-user-color-scheme="dark"] {
-  --pf-card-bg: #23272b;
-  --pf-muted: #8b939b;
-  --pf-tag-bg: #31363b;
-  --pf-tag-fg: #b3bac1;
-  --pf-link-border: #3d444b;
-  --pf-link-hover-bg: #2c3136;
+  --pf-card-bg: #2d3040;
+  --pf-card-border: #3c3f54;
+  --pf-muted: #a5a294;
+  --pf-tag-bg: #363950;
+  --pf-tag-fg: #bcb9aa;
+  --pf-link-border: #4a4d66;
+  --pf-link-hover-bg: #363950;
 }
 
 [data-user-color-scheme="dark"] .pf-card {
