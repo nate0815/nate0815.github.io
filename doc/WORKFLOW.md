@@ -169,6 +169,8 @@ gh run list --limit 3
 
 改完一樣是預覽 → commit → push。
 
+> ⚠️ **預覽時改 `portfolio.yml` 不會自動更新。** 跟改文章不一樣,作品集要先按 `Ctrl` + `C` 關掉 `npx hexo server`,再重跑一次才會看到新內容。
+
 ---
 
 ## 三、修改已發布的內容
@@ -189,6 +191,7 @@ gh run list --limit 3
 | 症狀 | 先試這個 |
 |---|---|
 | 改了沒反應、版面怪怪的 | `npx hexo clean` 然後重跑 `npx hexo server` |
+| 改了作品集但預覽沒變 | 關掉 `npx hexo server` 再重開(作品集資料不會自動更新) |
 | build 失敗,訊息提到 YAML | 檢查 frontmatter 或 `portfolio.yml` 的縮排與冒號空格 |
 | 圖片顯示不出來 | 確認圖片在 `source/` 底下;確認檔名大小寫完全一致 |
 | 本機好好的,線上沒更新 | `gh run list` 看部署有沒有失敗;確認真的 `git push` 了 |

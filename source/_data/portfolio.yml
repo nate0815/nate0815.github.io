@@ -4,43 +4,109 @@
 #
 #  每個欄位:
 #    title    必填  作品名稱
-#    desc     必填  一到兩句話的簡介
-#    cover    選填  封面圖,放在 source/img/portfolio/ 底下
-#                   例如放了 mygame.png 就寫 /img/portfolio/mygame.png
+#    desc     必填  一句話形容這個遊戲(卡片上字多會難讀,細節留給 itch.io 頁面)
+#    cover    選填  封面圖,放在 source/asset/portfolio/ 底下
+#                   例如放了 mygame.jpg 就寫 /asset/portfolio/mygame.jpg
 #                   留空的話會顯示漸層底 + 作品名稱
 #    year     選填  年份,顯示在卡片角落
 #    role     選填  你在這個專案的角色
-#    tags     選填  技術/類型標籤,會顯示成小圓角標籤
+#    tags     選填  玩法標籤(解謎、平台跳躍…),會顯示成小圓角標籤
 #    links    選填  按鈕連結,想放幾個都行
 #             每個連結有 text(按鈕文字)和 url
 #    featured 選填  設 true 會排在最前面並加寬顯示
 #
 #  ⚠️ YAML 格式提醒:縮排一律用「空格」不要用 Tab,
-#     冒號後面要留一個空格。改完存檔後重新整理瀏覽器就能看到。
+#     冒號後面要留一個空格。
+#  ⚠️ 預覽時改這個檔案「不會」自動更新:要先按 Ctrl+C 關掉 hexo server 再重開。
 # ============================================================
 
-# 👇 這是佔位用的空白卡片。填上你第一個作品之後,把 title/desc 改掉即可。
-#    暫時不想顯示任何東西的話,把下面整段刪掉,頁面會顯示「還沒有作品」。
-- title: 作品準備中
-  desc: 這張是佔位卡片。把它改成你的第一個作品,或整段刪掉。
-  cover:
+# ---------- 個人作品 ----------
+
+- title: AFTERGLOW
+  desc: 走過的路會隨顏色褪去,路徑本身就是倒數的解謎遊戲。
+  cover: /asset/portfolio/afterglow.jpg
+  year: 2026
+  role: 設計、美術、程式
+  tags:
+    - 解謎
+    - 動作
+  links:
+    - { text: "遊玩", url: "https://na23dev.itch.io/afterglow" }
+    - { text: "設計過程", url: "/posts/afterglow-design-notes/" }
+    - { text: "Jam 頁面", url: "https://itch.io/jam/gmtk-jam-2026/rate/4824200" }
+
+- title: Yours to take
+  desc: 金幣拿或不拿都由你決定的短篇平台遊戲。
+  cover: /asset/portfolio/yours-to-take.png
+  year: 2026
+  role: 設計、程式
+  tags:
+    - 平台跳躍
+    - 多結局
+  links:
+    - { text: "遊玩", url: "https://na23dev.itch.io/yours-to-take" }
+
+# ---------- 團隊作品(Game Jam) ----------
+
+- title: UwU
+  desc: 勇敢小狗解救主人。
+  cover: /asset/portfolio/uwu.jpg
   year: 2026
   tags: []
-  links: []
+  links:
+    - { text: "遊玩", url: "https://deepdr3am.itch.io/uwu" }
+    - { text: "Jam 頁面", url: "https://itch.io/jam/2026-garena-rayark-game-jam/rate/4674943" }
+
+- title: There Is No Loop
+  desc: 三個看似無限循環的小遊戲,目標是找到出路。
+  cover: /asset/portfolio/there-is-no-loop.jpg
+  year: 2025
+  tags:
+    - 解謎
+    - 休閒
+  links:
+    - { text: "遊玩", url: "https://deepdr3am.itch.io/there-is-no-loop" }
+    - { text: "遊玩影片", url: "https://www.youtube.com/watch?v=oZaGp4Gequs" }
+    - { text: "Jam 頁面", url: "https://itch.io/jam/gmtk-2025/rate/3779334" }
+
+- title: Where is My Mom?
+  desc: 幫貓咪蓋出落腳處,一路找到媽媽。
+  cover: /asset/portfolio/where-is-my-mom.png
+  year: 2024
+  role: 遊戲設計
+  tags:
+    - 冒險
+    - 平台跳躍
+    - 建造
+  links:
+    - { text: "遊玩", url: "https://feather-chung.itch.io/where-is-my-mom" }
+    - { text: "Jam 頁面", url: "https://itch.io/jam/gmtk-2024/rate/2902941" }
+
+- title: Aquaventure
+  desc: 切換水的三種型態來過關的解謎平台遊戲。
+  cover: /asset/portfolio/aquaventure.png
+  year: 2024
+  role: 遊戲設計
+  tags:
+    - 解謎
+    - 平台跳躍
+  links:
+    - { text: "遊玩", url: "https://deepdr3am.itch.io/aquaventure" }
+    - { text: "Jam 頁面", url: "https://itch.io/jam/-pixel-game-jam-2024/rate/2718966" }
 
 
 # ------------------------------------------------------------
 # 👇 複製下面這段模板來新增作品(記得把最前面的 # 都拿掉)
 #
 # - title: 作品名稱
-#   desc: 一兩句話說明這是什麼、你做了什麼。
-#   cover: /img/portfolio/檔名.png
+#   desc: 一句話形容這個遊戲。
+#   cover: /asset/portfolio/檔名.jpg
 #   year: 2026
 #   role: solo dev
 #   featured: true
 #   tags:
-#     - Unity
-#     - C#
+#     - 解謎
+#     - 平台跳躍
 #   links:
 #     - { text: "遊玩", url: "https://你的帳號.itch.io/遊戲" }
 #     - { text: "原始碼", url: "https://github.com/nate0815/專案" }

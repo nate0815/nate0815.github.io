@@ -52,7 +52,7 @@ NA23_web/
 │  ├─ about/index.md        關於頁
 │  ├─ portfolio/index.md    作品集頁(內容只有一行 {% portfolio %})
 │  ├─ css/custom.css        自訂樣式
-│  └─ asset/default/        站台通用圖(頭像、favicon)
+│  └─ asset/default/        站台通用圖(頭像、favicon、自訂圖示 SVG)
 ├─ asset/                   原圖備份,不發布
 ├─ doc/                     本文件所在
 └─ public/                  build 產物,已 gitignore,不要手動改
@@ -88,6 +88,18 @@ const items = this.site.data.portfolio;
 // ✅ 正確
 const items = hexo.locals.get('data').portfolio;
 ```
+
+**圖示 class 寫錯不會報錯,只會什麼都不顯示**
+
+Fluid 的圖示來自兩份圖示字型,可用的名稱以[官方圖示表](https://hexo.fluid-dev.com/docs/icon/)為準。寫了不存在的 class(例如 `icon-envelope-fill`,正確的是 `icon-mail`)時 build 照樣成功,HTML 裡連結也在,但畫面上是一個看不見、寬度為零的圖示。**加完圖示一定要開頁面用眼睛看。**
+
+字型裡沒有的圖示(例如 itch.io)用 `custom.css` 補:SVG 放 `source/asset/default/`,再寫一個用 `mask` 套 SVG 的 class(見 `custom.css` 的 `.icon-itchio`),設定檔裡只寫該 class、不加 `iconfont`。
+
+**`hexo server` 開著時改 `portfolio.yml`,頁面不會更新**
+
+實測(2026-10):改 `source/_data/portfolio.yml` 後重新整理瀏覽器,作品集頁仍是舊內容,也不會報錯。原因是 `{% portfolio %}` 是在渲染 `source/portfolio/index.md` 時展開的,而那個檔案沒變,Hexo 就沿用快取。改 `.md` 與 `custom.css` 則會即時更新。
+
+解法:`Ctrl+C` 關掉 server 再重跑 `npx hexo server`。`hexo generate` 與線上部署不受影響。
 
 **PowerShell 5.1 讀 `.ps1` 檔預設用 ANSI 編碼**
 
