@@ -193,10 +193,27 @@ gh run list --limit 3
 |---|---|
 | 改了沒反應、版面怪怪的 | `npx hexo clean` 然後重跑 `npx hexo server` |
 | 改了作品集但預覽沒變 | 關掉 `npx hexo server` 再重開(作品集資料不會自動更新) |
+| 改了 `_config.fluid.yml` 或 `scripts/` 裡的檔案但預覽沒變 | 一樣要關掉 `npx hexo server` 再重開 |
+| 在本機點選單的 Translate,翻出來的不是正在預覽的頁面 | 正常。Google 連不到你電腦上的預覽,本機點了會翻線上版的首頁。翻譯要推上線後才能測 |
 | build 失敗,訊息提到 YAML | 檢查 frontmatter 或 `portfolio.yml` 的縮排與冒號空格 |
 | 圖片顯示不出來 | 確認圖片在 `source/` 底下;確認檔名大小寫完全一致 |
 | 本機好好的,線上沒更新 | `gh run list` 看部署有沒有失敗;確認真的 `git push` 了 |
 | 線上還是舊的 | 等 1 分鐘,然後用 `Ctrl` + `F5` 強制重新整理清快取 |
+
+---
+
+## 五、想改外觀時該去哪裡
+
+| 想改的東西 | 改哪個檔案 |
+|---|---|
+| 首頁招牌上的字(目前是 `NA23.Chiao`) | `source/js/na23.js` 最上面的 `SIGN_TEXT`。新的字元要在同檔的 `FONT` 裡補上點陣圖 |
+| 首頁「精選作品」要放哪幾個 | `source/_data/portfolio.yml`,在作品底下加或刪 `featured: true` |
+| 首頁那句副標題 | `_config.fluid.yml` 的 `index.slogan.text` |
+| 選單項目、Translate 的語言 | `_config.fluid.yml` 的 `navbar.menu` |
+| 顏色 | 主題本身的顏色在 `_config.fluid.yml` 的 `color:`;卡片、招牌等自訂部分在 `source/css/custom.css` 最上面的 `--na-*`。**淺色、深色兩組都要改** |
+| 把站內搜尋(放大鏡)加回來 | `_config.fluid.yml` 的 `search.enable` 改成 `true` |
+
+規格與每個決定的理由都在 [DESIGN.md](DESIGN.md);不確定能不能改的,先看那份文件最後的「明確不做的事」。
 
 **最重要的一條:本機改完不 push,線上永遠不會變。**
 
