@@ -141,19 +141,6 @@
   color: var(--na-mute);
 }
 
-/* 深淺切換按鈕:主題只給一個圖示,補上文字才看得出它是開關。
-   手機版的格狀選單本來就有文字,所以只在桌機補 */
-@media (min-width: 992px) {
-  #color-toggle-btn .nav-link::after {
-    content: "深色";
-    margin-left: .3rem;
-  }
-
-  [data-user-color-scheme="dark"] #color-toggle-btn .nav-link::after {
-    content: "淺色";
-  }
-}
-
 /* ---------- 頂部區塊 ----------
    不放圖片,底色與頁面相同;字元招牌與軌跡由 na23.js 畫在 .na-canvas 上。
    主題把圖片與遮罩寫在行內樣式,所以這裡需要 !important 才蓋得過 */

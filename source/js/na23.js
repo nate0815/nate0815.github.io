@@ -331,20 +331,46 @@
 
   /* ---------- 翻譯連結 ----------
      選單裡的 Google 翻譯連結預設指向首頁,這裡改成訪客當下這一頁。
-     本機預覽時不改(Google 連不到 localhost) */
+
+     已經在翻譯頁裡的時候要另外處理:Google 會把頁面上所有連結都改寫成
+     「經過翻譯代理」的版本,選單的連結就變成「翻譯 Google 翻譯自己」,
+     點了會出現 Can't translate this page。所以在翻譯頁裡改成攔下點擊,
+     只把目前網址的目標語言(_x_tr_tl)換掉,等於切換語言。
+
+     本機預覽時不處理(Google 連不到 localhost) */
   function setupTranslate() {
     var host = location.hostname;
-    if (/\.translate\.goog$/.test(host)) {
-      /* 已經在翻譯後的頁面裡:Google 的工具列會蓋住導覽列,交給 custom.css 往下挪 */
-      root.setAttribute('data-na-translated', '');
-      return;
-    }
+    var proxied = /\.translate\.goog$/.test(host);
+    /* Google 的工具列會蓋住導覽列,交給 custom.css 處理 */
+    if (proxied) root.setAttribute('data-na-translated', '');
     if (/^(localhost|127\.|\[::1\])/.test(host)) return;
+
     var here = encodeURIComponent(location.href.split('#')[0]);
-    var links = document.querySelectorAll('a[href^="https://translate.google.com/translate"]');
+    var links = document.querySelectorAll('#navbar a, #mobile-grid-menu a');
     Array.prototype.forEach.call(links, function (a) {
-      a.href = a.href.replace(/([?&]u=)[^&]*/, '$1' + here);
+      var href = a.getAttribute('href') || '';
+      /* [?&]tl= 只會對到我們自己寫的 tl=,不會對到 Google 加上的 _x_tr_tl= */
+      var m = /[?&]tl=([^&#]+)/.exec(href);
+      if (!m || href.indexOf('translate') === -1) return;
+      var lang = decodeURIComponent(m[1]);
+      if (proxied) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          try {
+            var u = new URL(location.href);
+            u.searchParams.set('_x_tr_tl', lang);
+            location.assign(u.toString());
+          } catch (err) {}
+        }, true);
+      } else {
+        a.setAttribute('href', href.replace(/([?&]u=)[^&#]*/, '$1' + here));
+      }
     });
+
+    /* 深淺切換只有圖示,補一個滑鼠停留時的說明 */
+    var toggle = document.querySelector('#color-toggle-btn .nav-link');
+    if (toggle) toggle.setAttribute('title', '深色 / 淺色');
   }
   setupTranslate();
 
