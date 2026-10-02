@@ -47,7 +47,8 @@ NA23_web/
 ├─ scripts/
 │  ├─ portfolio.js          作品集卡片的 Hexo tag 外掛
 │  ├─ home-feature.js       首頁「精選作品」區塊(after_render:html filter)
-│  └─ cache-bust.js         替 custom.css / na23.js 的網址加上版本號
+│  ├─ cache-bust.js         替 custom.css / na23.js 的網址加上版本號
+│  └─ translate-links.js    替選單的翻譯連結加上 data-na-tl(語言)與 translate="no"
 ├─ source/                  ★ 只有這個資料夾底下的東西會被發布
 │  ├─ _posts/               文章
 │  ├─ _data/portfolio.yml   作品集資料
@@ -98,7 +99,7 @@ Google 翻譯代理是由 Google 的伺服器去抓網頁,它連不到 `localhos
 
 透過代理瀏覽時,網域會變成 `nate0815-github-io.translate.goog`,而且 Google 會在視窗最上面加一條工具列並把整頁往下推。`na23.js` 偵測到這個網域會在 `<html>` 加上 `data-na-translated`,`custom.css` 據此把導覽列從「釘在視窗頂端」改成「跟著頁面走」,就不會被工具列蓋住,也不必知道工具列多高。
 
-**翻譯代理會改寫頁面上所有的連結。** 包括選單裡那兩個指向 `translate.google.com` 的連結,會被改成「經過代理的 Google 翻譯」,點了出現 Can't translate this page。所以 `na23.js` 在翻譯頁裡不靠連結本身,而是攔下點擊、只換掉目前網址的 `_x_tr_tl` 參數。**寫在 CSS `content` 裡的文字不會被翻譯**,需要被翻譯的字一定要放在 HTML 裡。
+**翻譯代理會改寫頁面上所有的連結。** 包括選單裡那兩個指向 `translate.google.com` 的連結,會被改成「經過代理的 Google 翻譯」,點了出現 Can't translate this page。所以 `na23.js` 在翻譯頁裡不靠連結本身,而是攔下點擊、只換掉目前網址的 `_x_tr_tl` 參數。**也不能從連結的網址判斷它是哪個語言**(改寫後的網址裡,先出現的 `tl=` 是「目前的語言」),語言要讀 `scripts/translate-links.js` 在 build 時寫進去的 `data-na-tl` 屬性。**寫在 CSS `content` 裡的文字不會被翻譯**,需要被翻譯的字一定要放在 HTML 裡。
 
 **不要用自動化瀏覽器(headless Chrome)去開 Google 翻譯的網址。** 2026-10-03 連續截了幾次圖之後,Google 就對這台電腦的 IP 跳出「我不是機器人」驗證。翻譯頁請用自己的瀏覽器看。
 

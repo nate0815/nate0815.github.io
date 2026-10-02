@@ -346,13 +346,12 @@
     if (/^(localhost|127\.|\[::1\])/.test(host)) return;
 
     var here = encodeURIComponent(location.href.split('#')[0]);
-    var links = document.querySelectorAll('#navbar a, #mobile-grid-menu a');
+    /* data-na-tl 是 scripts/translate-links.js 在 build 時加上的記號,寫著這顆要翻成哪個語言。
+       不從網址判斷,因為在翻譯頁裡網址會被 Google 改寫 */
+    var links = document.querySelectorAll('a[data-na-tl]');
     Array.prototype.forEach.call(links, function (a) {
-      var href = a.getAttribute('href') || '';
-      /* [?&]tl= 只會對到我們自己寫的 tl=,不會對到 Google 加上的 _x_tr_tl= */
-      var m = /[?&]tl=([^&#]+)/.exec(href);
-      if (!m || href.indexOf('translate') === -1) return;
-      var lang = decodeURIComponent(m[1]);
+      var lang = a.getAttribute('data-na-tl');
+      if (!lang) return;
       if (proxied) {
         var target;
         try {
@@ -369,6 +368,7 @@
           location.assign(target);
         }, true);
       } else {
+        var href = a.getAttribute('href') || '';
         a.setAttribute('href', href.replace(/([?&]u=)[^&#]*/, '$1' + here));
       }
     });
