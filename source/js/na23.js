@@ -354,14 +354,19 @@
       if (!m || href.indexOf('translate') === -1) return;
       var lang = decodeURIComponent(m[1]);
       if (proxied) {
+        var target;
+        try {
+          var u = new URL(location.href);
+          u.searchParams.set('_x_tr_tl', lang);
+          target = u.toString();
+        } catch (err) { return; }
+        /* 兩道保險:連結本身直接改成正確的網址;點擊時也自己導過去,
+           不讓 Google 的改寫有機會把它帶去別的地方 */
+        a.setAttribute('href', target);
         a.addEventListener('click', function (e) {
           e.preventDefault();
-          e.stopPropagation();
-          try {
-            var u = new URL(location.href);
-            u.searchParams.set('_x_tr_tl', lang);
-            location.assign(u.toString());
-          } catch (err) {}
+          e.stopImmediatePropagation();
+          location.assign(target);
         }, true);
       } else {
         a.setAttribute('href', href.replace(/([?&]u=)[^&#]*/, '$1' + here));
