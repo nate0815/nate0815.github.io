@@ -26,7 +26,7 @@
 | `hexo-generator-archive` | `/archives/` 封存頁 |
 | `hexo-generator-category` | `/categories/` 分類頁 |
 | `hexo-generator-tag` | `/tags/` 標籤頁 |
-| `hexo-generator-search` | 主題的本地搜尋功能所需(產生 `local-search.xml`) |
+| `hexo-generator-search` | 主題的本地搜尋功能所需。**搜尋目前關閉**(`_config.fluid.yml` 的 `search.enable: false`),套件留著沒移除,所以 build 仍會多產生一個沒人用的 `search.xml`,無害 |
 | `hexo-renderer-marked` | Markdown 渲染 |
 | `hexo-renderer-ejs` | 主題模板渲染 |
 | `hexo-renderer-stylus` | 主題樣式編譯 |
