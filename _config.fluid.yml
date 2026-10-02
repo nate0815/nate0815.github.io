@@ -100,7 +100,8 @@ fun_features:
     # 在指定页面开启，不填则在所有页面开启
     # Enable in specified page, all pages by default
     # Options: home | post | tag | category | about | links | page | 404
-    scope: []
+    # 只在首頁打字。文章標題一個字一個字出現時會邊打邊換行,手機上整頁會跟著跳
+    scope: ["home"]
 
   # 为文章内容中的标题添加锚图标
   # Add an anchor icon to the title on the post page

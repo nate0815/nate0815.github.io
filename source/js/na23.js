@@ -98,9 +98,9 @@
         S.cols = Math.ceil(S.w / S.cw); S.rows = Math.ceil(S.h / S.ch);
 
         /* 垂直位置:導覽列以下、副標題以上的空間置中 */
-        /* 導覽列蓋住頂部多少。透過 Google 翻譯瀏覽時整頁會被往下推,所以要用實際位置算 */
+        /* 導覽列蓋住頂部多少(招牌要避開它) */
         var nav = document.getElementById('navbar');
-        var top = nav ? Math.max(0, nav.offsetTop + nav.offsetHeight - (r.top + window.scrollY)) : 56;
+        var top = nav ? nav.offsetHeight : 56;
         var signH = 7 * bh * S.ch;
         var below = S.w < 768 ? 60 : 88;   /* 留給副標題的高度,對應 custom.css 的 margin-bottom */
         var oy = Math.max(0, Math.round((top + Math.max(0, (S.h - top - below - signH) / 2)) / S.ch));
@@ -122,7 +122,7 @@
           x0 += g[0].length + 1;
         });
         S.sign = { x: ox * S.cw, y: oy * S.ch, w: signW, h: signH };
-        S.radius = Math.max(26, block * 2.4);
+        S.radius = Math.max(14, block * 2.4);   /* 光暈大小跟著招牌縮放,手機上才不會糊成一片 */
       } else {
         S.cw = 9; S.ch = 16; S.radius = 30;
         S.cols = Math.ceil(S.w / S.cw); S.rows = Math.ceil(S.h / S.ch);

@@ -103,10 +103,42 @@
   background-color: var(--navbar-bg-color);
 }
 
-/* 透過 Google 翻譯瀏覽時,Google 的工具列(高 56px)固定在最上面,
-   會蓋住同樣固定在最上面的導覽列,所以把導覽列往下挪 */
+/* 透過 Google 翻譯瀏覽時,Google 的工具列固定在視窗最上面,並把整頁內容往下推。
+   導覽列如果也釘在視窗頂端就會被它蓋住,所以在翻譯頁裡改成「跟著頁面走」:
+   Google 把頁面推多少,導覽列就跟著往下多少,不必猜工具列的高度;
+   訪客把工具列縮成懸浮按鈕後也不會留下空隙。
+   代價是翻譯頁往下捲時導覽列會跟著捲走(一般頁面不受影響) */
+[data-na-translated] .header-inner {
+  position: relative;
+}
+
 [data-na-translated] .navbar {
-  top: 56px;
+  position: absolute;
+}
+
+/* 手機的全螢幕選單是釘在視窗上的,頂端多留一些空間避開 Google 的工具列 */
+[data-na-translated] #mobile-grid-menu .mobile-grid-menu-inner {
+  padding-top: 130px;
+}
+
+/* 手機的全螢幕選單:主題的格子是「8% 的白」加圓角,在米色底上幾乎看不見。
+   改成跟卡片一樣的硬邊格子 */
+#mobile-grid-menu .mobile-grid-item {
+  border: 2px solid var(--na-line);
+  border-radius: 0;
+  background-color: var(--na-card);
+}
+
+#mobile-grid-menu .mobile-grid-item:hover,
+#mobile-grid-menu .mobile-grid-item:active {
+  border-color: var(--na-acc);
+  background-color: var(--na-card);
+}
+
+#mobile-grid-menu .mobile-grid-group-header {
+  border-top-color: var(--na-line);
+  opacity: 1;
+  color: var(--na-mute);
 }
 
 /* 深淺切換按鈕:主題只給一個圖示,補上文字才看得出它是開關。
@@ -509,6 +541,29 @@ a.pf-link:focus-visible {
 
   [data-na-page="home"] .banner-text {
     margin-bottom: 2rem;
+  }
+
+  /* 文章頁:頂部高度改成跟著標題長。
+     固定高度在手機上只放得下一行標題,兩三行的長標題會被導覽列蓋住。
+     5.5rem 是讓出導覽列的高度。用 :has() 只挑「有文章資訊」的頂部,
+     其他頁面的標題都很短,維持固定高度 */
+  .header-inner:has(.banner-text .post-meta) {
+    height: auto !important;
+    max-height: none;
+  }
+
+  .header-inner:has(.banner-text .post-meta) #banner,
+  .header-inner:has(.banner-text .post-meta) .full-bg-img {
+    height: auto;
+  }
+
+  .header-inner:has(.banner-text .post-meta) .mask {
+    position: relative;
+    padding: 5.5rem 0 2.5rem;
+  }
+
+  .header-inner:has(.banner-text .post-meta) .banner-text {
+    width: 90%;
   }
 
   [data-na-page="home"] #subtitle,

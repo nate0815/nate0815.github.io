@@ -95,7 +95,15 @@ Fluid 的 `theme_inject` 沒有「首頁內容區」這個插入點,所以 `scri
 
 Google 翻譯代理是由 Google 的伺服器去抓網頁,它連不到 `localhost`。所以本機預覽時點 Translate,翻的是**線上版的首頁**,不是你正在預覽的頁面。要驗證只能推上線後,實際開 `https://translate.google.com/translate?sl=zh-TW&tl=en&u=<線上網址>` 看。
 
-透過代理瀏覽時,網域會變成 `nate0815-github-io.translate.goog`,而且 Google 會在最上面加一條 56px 的工具列並把整頁往下推。`na23.js` 偵測到這個網域會在 `<html>` 加上 `data-na-translated`,`custom.css` 據此把導覽列往下挪。
+透過代理瀏覽時,網域會變成 `nate0815-github-io.translate.goog`,而且 Google 會在視窗最上面加一條工具列並把整頁往下推。`na23.js` 偵測到這個網域會在 `<html>` 加上 `data-na-translated`,`custom.css` 據此把導覽列從「釘在視窗頂端」改成「跟著頁面走」,就不會被工具列蓋住,也不必知道工具列多高。
+
+**不要用自動化瀏覽器(headless Chrome)去開 Google 翻譯的網址。** 2026-10-03 連續截了幾次圖之後,Google 就對這台電腦的 IP 跳出「我不是機器人」驗證。翻譯頁請用自己的瀏覽器看。
+
+**翻譯頁改了卻沒變:多半是快取**。翻譯頁的樣式與程式是從 `…translate.goog` 這個網域載入的,瀏覽器會另外快取約 10 分鐘;在翻譯頁上按 `Ctrl+F5` 才會重抓。
+
+**手機寬度的截圖與「打開選單」**
+
+沿用舊的 iframe 做法,但把包裝用的 HTML 暫時放進 `public/`(build 產物,不進版控),讓它和網站同源,才能用 script 去點 iframe 裡的漢堡按鈕。點之前先注入一段把選單 transition 關掉的樣式,否則 headless 會截到動畫一半、看起來像半透明。截完記得把暫存檔刪掉。
 
 **字元 shader 的顏色不在 JS 裡**
 
