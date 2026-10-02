@@ -387,6 +387,14 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill", name: "分類" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill", name: "標籤" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill", name: "關於" }
+    # 機器翻譯:連到 Google 翻譯的網頁代理。網址最後的 u= 是「沒有 JavaScript 時」翻譯的頁面(首頁);
+    # 正常情況下 source/js/na23.js 會把它換成訪客當下正在看的那一頁。
+    # 要加語言就複製一行,把 tl= 後面改成語言代碼(ko 韓文、fr 法文…)
+    - key: "translate"
+      name: "Translate"
+      submenu:
+        - { key: "en", name: "English", link: "https://translate.google.com/translate?sl=zh-TW&tl=en&u=https://nate0815.github.io/" }
+        - { key: "ja", name: "日本語", link: "https://translate.google.com/translate?sl=zh-TW&tl=ja&u=https://nate0815.github.io/" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件

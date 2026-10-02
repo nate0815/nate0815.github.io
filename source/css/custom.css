@@ -96,6 +96,19 @@
   animation: na-blink 1.1s steps(1) infinite;
 }
 
+/* 下拉選單(Translate):主題預設是半透明黑底,在淺色導覽列上看不清楚 */
+.navbar .dropdown-menu {
+  border: 2px solid var(--na-line);
+  border-radius: 0;
+  background-color: var(--navbar-bg-color);
+}
+
+/* 透過 Google 翻譯瀏覽時,Google 的工具列(高 56px)固定在最上面,
+   會蓋住同樣固定在最上面的導覽列,所以把導覽列往下挪 */
+[data-na-translated] .navbar {
+  top: 56px;
+}
+
 /* 深淺切換按鈕:主題只給一個圖示,補上文字才看得出它是開關。
    手機版的格狀選單本來就有文字,所以只在桌機補 */
 @media (min-width: 992px) {

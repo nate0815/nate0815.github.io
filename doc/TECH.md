@@ -91,6 +91,12 @@ Fluid 的 `theme_inject` 沒有「首頁內容區」這個插入點,所以 `scri
 
 主題把 banner 圖片與遮罩顏色寫在 HTML 的行內樣式,`custom.css` 只能用 `!important` 覆蓋。副作用:`_config.fluid.yml` 裡各頁的 `banner_img`、`banner_mask_alpha`,以及文章 frontmatter 的 `banner_img` 都**沒有效果**(只有 `banner_img_height` 仍有效)。
 
+**Translate 連結在本機預覽時無法驗證**
+
+Google 翻譯代理是由 Google 的伺服器去抓網頁,它連不到 `localhost`。所以本機預覽時點 Translate,翻的是**線上版的首頁**,不是你正在預覽的頁面。要驗證只能推上線後,實際開 `https://translate.google.com/translate?sl=zh-TW&tl=en&u=<線上網址>` 看。
+
+透過代理瀏覽時,網域會變成 `nate0815-github-io.translate.goog`,而且 Google 會在最上面加一條 56px 的工具列並把整頁往下推。`na23.js` 偵測到這個網域會在 `<html>` 加上 `data-na-translated`,`custom.css` 據此把導覽列往下挪。
+
 **字元 shader 的顏色不在 JS 裡**
 
 `na23.js` 的顏色是讀 `custom.css` 的 `--na-rest`、`--na-hot0`~`2`、`--na-acc`、`--na-card`。要改顏色改 CSS,不要改 JS。深淺切換時 JS 會監聽 `<html>` 的 `data-user-color-scheme` 自動重讀。

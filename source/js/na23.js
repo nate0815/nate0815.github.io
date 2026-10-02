@@ -98,8 +98,9 @@
         S.cols = Math.ceil(S.w / S.cw); S.rows = Math.ceil(S.h / S.ch);
 
         /* 垂直位置:導覽列以下、副標題以上的空間置中 */
+        /* 導覽列蓋住頂部多少。透過 Google 翻譯瀏覽時整頁會被往下推,所以要用實際位置算 */
         var nav = document.getElementById('navbar');
-        var top = nav ? nav.offsetHeight : 56;
+        var top = nav ? Math.max(0, nav.offsetTop + nav.offsetHeight - (r.top + window.scrollY)) : 56;
         var signH = 7 * bh * S.ch;
         var below = S.w < 768 ? 60 : 88;   /* 留給副標題的高度,對應 custom.css 的 margin-bottom */
         var oy = Math.max(0, Math.round((top + Math.max(0, (S.h - top - below - signH) / 2)) / S.ch));
@@ -327,6 +328,25 @@
       }, 7000);
     }
   }
+
+  /* ---------- 翻譯連結 ----------
+     選單裡的 Google 翻譯連結預設指向首頁,這裡改成訪客當下這一頁。
+     本機預覽時不改(Google 連不到 localhost) */
+  function setupTranslate() {
+    var host = location.hostname;
+    if (/\.translate\.goog$/.test(host)) {
+      /* 已經在翻譯後的頁面裡:Google 的工具列會蓋住導覽列,交給 custom.css 往下挪 */
+      root.setAttribute('data-na-translated', '');
+      return;
+    }
+    if (/^(localhost|127\.|\[::1\])/.test(host)) return;
+    var here = encodeURIComponent(location.href.split('#')[0]);
+    var links = document.querySelectorAll('a[href^="https://translate.google.com/translate"]');
+    Array.prototype.forEach.call(links, function (a) {
+      a.href = a.href.replace(/([?&]u=)[^&]*/, '$1' + here);
+    });
+  }
+  setupTranslate();
 
   /* ---------- 啟動 ---------- */
   var feat = document.getElementById('na-feat');
