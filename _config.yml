@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: NA23
-subtitle: 'Chiao 的遊戲開發與閱讀筆記'
-description: 'NA23 — Chiao 的個人網站。記錄遊戲開發心得、讀書筆記,以及個人作品集。'
-keywords: NA23, Chiao, 遊戲開發, devlog, 讀書心得, 作品集, indie game
-author: Chiao
+title: NA23.Chiao
+subtitle: 'NA23.Chiao 的遊戲開發與閱讀筆記'
+description: 'NA23.Chiao 的個人網站。記錄遊戲開發心得、讀書筆記,以及個人作品集。'
+keywords: NA23.Chiao, NA23, Chiao, 遊戲開發, devlog, 讀書心得, 作品集, indie game
+author: NA23.Chiao
 language: zh-TW
 timezone: Asia/Taipei
 

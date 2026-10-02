@@ -13,11 +13,24 @@
 | 項目 | 內容 |
 |---|---|
 | 定位 | 個人網站 = 部落格 + 作品集 |
-| 對外品牌 | **NA23** |
-| 作者署名 | **Chiao** |
+| 站名與署名 | **NA23.Chiao** — 網名 NA23 與本名 Chiao 並列,兩者份量相等。**凡是顯示站名或作者的地方一律寫完整的 `NA23.Chiao`**,不單獨寫 `NA23` 或 `Chiao` |
 | 目前網址 | https://nate0815.github.io/ |
 | 規劃網址 | `https://na23.dev`(尚未購買) |
 | 語言 | 繁體中文(`zh-TW`)單語。**不自己維護第二語言**;外國訪客用選單的 Translate 看機器翻譯(見第 3 節) |
+
+`NA23.Chiao` 出現的位置,以及各自在哪裡設定:
+
+| 位置 | 設定 |
+|---|---|
+| 瀏覽器分頁標題、分享連結時的預覽名稱(`og:site_name`、首頁的 `og:title`) | `_config.yml` 的 `title` |
+| 文章的作者(`<meta name="author">`、文末版權區塊) | `_config.yml` 的 `author` |
+| 搜尋結果的網站描述 | `_config.yml` 的 `description` |
+| 導覽列左上角 | `_config.fluid.yml` 的 `navbar.blog_title` |
+| 頁尾的 © | `_config.fluid.yml` 的 `footer.content` |
+| 「關於」頁頭像下方的名字 | `_config.fluid.yml` 的 `about.name` |
+| 首頁的字元招牌 | `source/js/na23.js` 的 `SIGN_TEXT` |
+
+例外:「關於」頁內文那句「我是 Chiao,網路上大多用 NA23 這個名字」是在解釋這兩個名字,所以分開寫。專案資料夾、repo、程式檔名裡的 `na23` 是代號,不是顯示給訪客的名字,不改。
 
 ### 內容類型
 
@@ -321,8 +334,8 @@ GitHub Pages 官方限制:
 
 目標關鍵字(務實設定,不搶通用字):
 
-- `NA23`
-- `NA23 遊戲開發`
+- `NA23.Chiao`
+- `NA23`、`NA23 遊戲開發`
 - `Chiao 遊戲開發`
 
 必要措施:
