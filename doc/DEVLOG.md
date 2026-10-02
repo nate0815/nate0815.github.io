@@ -25,7 +25,7 @@
 
 ## 2026-10-03 — 視覺改版:字元招牌、精選作品、卡片點亮、深色磷光配色(分支 `style/visual-refresh`)
 
-> ⚠️ 仍在分支 `style/visual-refresh` 上,**尚未 commit、尚未合併、尚未上線**。
+> ✅ 使用者確認後已合併回 `main` 並上線(2026-10-03)。開發時在分支 `style/visual-refresh` 上進行。
 
 **做了什麼**
 
@@ -78,7 +78,8 @@
 - [ ] 沒有在真實手機上測過(觸控滑過招牌、44px 按鈕)
 - [ ] 「關於」頁的 Email 圖示仍然沒顯示(`icon-envelope-fill` 不存在,上一輪留下的待辦)
 - [ ] `_config.fluid.yml` 裡各頁的 `banner_img: /img/default.png` 已無作用,可以之後清掉
-- [ ] 使用者確認後 commit、合併回 main 並推送
+- [x] 使用者確認後 commit、合併回 main 並推送(部署成功,線上首頁已含精選作品區塊)
+- [ ] `source/_drafts/chiaoflow-doc-system.md` 仍未進版控(草稿,這次刻意沒有一起推)
 
 ---
 
