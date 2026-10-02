@@ -13,7 +13,8 @@
 #    tags     選填  玩法標籤(解謎、平台跳躍…),會顯示成小圓角標籤
 #    links    選填  按鈕連結,想放幾個都行
 #             每個連結有 text(按鈕文字)和 url
-#    featured 選填  設 true 會排在最前面並加寬顯示
+#    featured 選填  設 true 會出現在首頁的「精選作品」輪播,並在作品集排最前面
+#                   建議只給 2~3 個最想讓人先看到的作品
 #
 #  ⚠️ YAML 格式提醒:縮排一律用「空格」不要用 Tab,
 #     冒號後面要留一個空格。
@@ -27,6 +28,7 @@
   cover: /asset/portfolio/afterglow.jpg
   year: 2026
   role: 設計、美術、程式
+  featured: true
   tags:
     - 解謎
     - 動作
@@ -40,6 +42,7 @@
   cover: /asset/portfolio/yours-to-take.png
   year: 2026
   role: 設計、程式
+  featured: true
   tags:
     - 平台跳躍
     - 多結局

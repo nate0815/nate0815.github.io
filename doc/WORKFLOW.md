@@ -59,7 +59,6 @@ tags:
 ```yaml
 sticky: 100          # 置頂,數字越大越前面
 excerpt: 自訂摘要     # 不寫的話會自動抓開頭
-banner_img: /asset/default/xxx.jpg   # 這篇文章專用的頂部大圖
 ```
 
 ### 步驟 3:寫內容
@@ -157,9 +156,11 @@ gh run list --limit 3
     - { text: "原始碼", url: "https://github.com/nate0815/專案" }
 ```
 
-**封面圖**放到 `source/asset/portfolio/`(資料夾不存在就自己建),然後 `cover` 欄位寫 `/asset/portfolio/檔名.jpg`。建議尺寸 1200×675(16:9),壓到 200 KB 以內。
+**封面圖**放到 `source/asset/portfolio/`(資料夾不存在就自己建),然後 `cover` 欄位寫 `/asset/portfolio/檔名.jpg`。尺寸 630×500(itch.io 封面的原尺寸)或同比例,壓到 200 KB 以內。
 
-不想放封面圖就把 `cover:` 留空,會自動顯示漸層底色加作品名,一樣好看。
+不想放封面圖就把 `cover:` 留空,會改成顯示作品名。
+
+**`featured: true` 是「放上首頁」的開關。** 有這一行的作品會出現在首頁最上面的「精選作品」輪播,並在作品集排最前面。建議只給 2~3 個最想讓人先看到的作品;不想放首頁就把這一行刪掉。
 
 > ⚠️ **YAML 兩大地雷:**
 > 1. 縮排只能用**空格**,不能用 Tab

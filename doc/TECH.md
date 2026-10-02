@@ -2,7 +2,7 @@
 
 > 給未來的自己與 AI 助手看的技術索引。要改東西之前先看這份,可以少走很多冤枉路。
 >
-> 最後更新:2026-08-05
+> 最後更新:2026-10-03
 
 ---
 
@@ -45,14 +45,17 @@ NA23_web/
 ├─ .github/workflows/
 │  └─ deploy.yml            自動部署流程
 ├─ scripts/
-│  └─ portfolio.js          作品集卡片的 Hexo tag 外掛
+│  ├─ portfolio.js          作品集卡片的 Hexo tag 外掛
+│  └─ home-feature.js       首頁「精選作品」區塊(after_render:html filter)
 ├─ source/                  ★ 只有這個資料夾底下的東西會被發布
 │  ├─ _posts/               文章
 │  ├─ _data/portfolio.yml   作品集資料
 │  ├─ about/index.md        關於頁
 │  ├─ portfolio/index.md    作品集頁(內容只有一行 {% portfolio %})
-│  ├─ css/custom.css        自訂樣式
-│  └─ asset/default/        站台通用圖(頭像、favicon、自訂圖示 SVG)
+│  ├─ css/custom.css        自訂樣式(顏色變數 --na-* 都在最上面)
+│  ├─ js/na23.js            自訂互動:字元招牌、游標軌跡、精選作品換圖
+│  ├─ asset/default/        站台通用圖(頭像、favicon、自訂圖示 SVG)
+│  └─ asset/font/           自己託管的字型檔(VT323)
 ├─ asset/                   原圖備份,不發布
 ├─ doc/                     本文件所在
 └─ public/                  build 產物,已 gitignore,不要手動改
@@ -72,12 +75,33 @@ NA23_web/
 | 想做的事 | 用什麼機制 | 檔案位置 |
 |---|---|---|
 | 改顏色、間距、版面細節 | 自訂 CSS | `source/css/custom.css`(已由 `custom_css` 掛載) |
-| 加 JS 行為 | 自訂 JS | 建立檔案後於 `_config.fluid.yml` 的 `custom_js` 指定 |
+| 加 JS 行為 | 自訂 JS | `source/js/na23.js`(已由 `custom_js` 掛載) |
+| 在主題沒有插入點的位置加 HTML | Hexo 的 `after_render:html` filter | `scripts/*.js`,見下方「首頁精選作品的插入點」 |
 | 在頁面產生自訂區塊 | Hexo tag 外掛 | `scripts/*.js`,用 `hexo.extend.tag.register()` |
 | 注入 HTML 到主題特定位置 | Fluid 的 `theme_inject` | `scripts/*.js`,用 `hexo.extend.filter.register('theme_inject', ...)` |
 | 改主題設定 | 設定檔 | `_config.fluid.yml` |
 
 ### 已知的坑
+
+**首頁精選作品的插入點依賴主題的輸出**
+
+Fluid 的 `theme_inject` 沒有「首頁內容區」這個插入點,所以 `scripts/home-feature.js` 是在整頁 HTML 產生後,找到主題輸出的 `<h1 style="display: none">`,把區塊插在它前面。主題升級後若這行改了,區塊會消失;這時 `hexo generate` 會印出一行 `WARN [home-feature] 找不到首頁的插入點`,**build 仍然成功**。升級主題後要看一眼 build 輸出與首頁。
+
+**頂部的圖與遮罩是用 `!important` 蓋掉的**
+
+主題把 banner 圖片與遮罩顏色寫在 HTML 的行內樣式,`custom.css` 只能用 `!important` 覆蓋。副作用:`_config.fluid.yml` 裡各頁的 `banner_img`、`banner_mask_alpha`,以及文章 frontmatter 的 `banner_img` 都**沒有效果**(只有 `banner_img_height` 仍有效)。
+
+**字元 shader 的顏色不在 JS 裡**
+
+`na23.js` 的顏色是讀 `custom.css` 的 `--na-rest`、`--na-hot0`~`2`、`--na-acc`、`--na-card`。要改顏色改 CSS,不要改 JS。深淺切換時 JS 會監聽 `<html>` 的 `data-user-color-scheme` 自動重讀。
+
+**改 `scripts/` 與 `_config.fluid.yml` 後,`hexo server` 要重啟**
+
+與 `portfolio.yml` 同一類問題。改 `custom.css`、`na23.js`、文章 `.md` 則會即時更新。
+
+**截圖驗證深色/淺色模式**
+
+headless Chrome 加 `--blink-settings=preferredColorScheme=0` 是深色、`=1` 是淺色。不加的話主題會依「現在幾點」決定(18 點到 6 點是深色),同一個指令白天晚上結果不同。
 
 **Hexo tag 外掛裡取不到 `this.site.data`**
 

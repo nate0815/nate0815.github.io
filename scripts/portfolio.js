@@ -61,10 +61,10 @@ hexo.extend.tag.register('portfolio', function () {
           .join('')}</div>`
       : '';
 
-    return `<article class="pf-card${item.featured ? ' pf-card--featured' : ''}">
+    return `<article class="pf-card">
   ${cover}
   <div class="pf-body">
-    <h3 class="pf-title">${esc(item.title)}${year}</h3>
+    <h3 class="pf-title"><span class="pf-name">${esc(item.title)}</span>${year}</h3>
     ${role}
     <p class="pf-desc">${esc(item.desc)}</p>
     ${tags}

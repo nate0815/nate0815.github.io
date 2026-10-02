@@ -121,7 +121,7 @@ fun_features:
   progressbar:
     enable: true
     height_px: 3
-    color: "#29d"
+    color: "#e8743a"
     # See: https://github.com/rstacruz/nprogress
     options: { showSpinner: false, trickleSpeed: 100 }
 
@@ -143,76 +143,76 @@ color:
   body_bg_color: "#f4f1de"
   # 暗色模式下的 body 背景色，下同
   # Color in dark mode, the same below
-  body_bg_color_dark: "#1b1c26"
+  body_bg_color_dark: "#0d0b08"
 
   # 顶部菜单背景色
   # Color of navigation bar background
-  navbar_bg_color: "#4a4e69"
-  navbar_bg_color_dark: "#2a2c3d"
+  navbar_bg_color: "#f4f1de"
+  navbar_bg_color_dark: "#0d0b08"
 
   # 顶部菜单字体色
   # Color of navigation bar text
-  navbar_text_color: "#fff"
-  navbar_text_color_dark: "#d2cfc0"
+  navbar_text_color: "#3d4059"
+  navbar_text_color_dark: "#f3d9a4"
 
   # 副标题字体色
   # Color of subtitle text
-  subtitle_color: "#fff"
-  subtitle_color_dark: "#d2cfc0"
+  subtitle_color: "#3d4059"
+  subtitle_color_dark: "#f3d9a4"
 
   # 全局字体色
   # Color of global text
   text_color: "#4a4e69"
-  text_color_dark: "#d2cfc0"
+  text_color_dark: "#c9c5bc"
 
   # 全局次级字体色（摘要、简介等位置）
   # Color of global secondary text (excerpt, introduction, etc.)
   sec_text_color: "#666982"
-  sec_text_color_dark: "#a5a294"
+  sec_text_color_dark: "#9d968a"
 
   # 主面板背景色
   # Color of main board
   board_color: "#fffdf5"
-  board_color_dark: "#262836"
+  board_color_dark: "#191816"
 
   # 文章正文字体色
   # Color of post text
   post_text_color: "#3d4059"
-  post_text_color_dark: "#d2cfc0"
+  post_text_color_dark: "#c9c5bc"
 
   # 文章正文字体色（h1 h2 h3...）
   # Color of Article heading (h1 h2 h3...)
   post_heading_color: "#2f3247"
-  post_heading_color_dark: "#e2dfd0"
+  post_heading_color_dark: "#ece7db"
 
   # 文章超链接字体色
   # Color of post link
   post_link_color: "#c93a3a"
-  post_link_color_dark: "#f08a7e"
+  post_link_color_dark: "#5ecfb1"
 
   # 超链接悬浮时字体色
   # Color of link when hovering
   link_hover_color: "#dd4a4a"
-  link_hover_color_dark: "#ffa99e"
+  link_hover_color_dark: "#8af2d6"
 
   # 超链接悬浮背景色
   # Color of link background when hovering
   link_hover_bg_color: "#f4f1de"
-  link_hover_bg_color_dark: "#32354a"
+  link_hover_bg_color_dark: "#211a0e"
 
   # 分隔线和表格边线的颜色
   # Color of horizontal rule and table border
   line_color: "#e3dfc4"
-  line_color_dark: "#3c3f54"
+  line_color_dark: "#33302a"
 
   # 滚动条颜色
   # Color of scrollbar
   scrollbar_color: "#cfcaa8"
-  scrollbar_color_dark: "#5a5d75"
+  scrollbar_color_dark: "#4a3a1c"
   # 滚动条悬浮颜色
   # Color of scrollbar when hovering
   scrollbar_hover_color: "#b5b08c"
-  scrollbar_hover_color_dark: "#8285a0"
+  scrollbar_hover_color_dark: "#6b5428"
 
   # 按钮背景色
   # Color of button
@@ -221,7 +221,7 @@ color:
   # 按钮悬浮背景色
   # Color of button when hovering
   button_hover_bg_color: "#ece8d0"
-  button_hover_bg_color_dark: "#3c3f54"
+  button_hover_bg_color_dark: "#241c0f"
 
 # 主题字体配置
 # Font
@@ -233,7 +233,7 @@ font:
 
 # 指定自定义 .js 文件路径，支持列表；路径是相对 source 目录，如 /js/custom.js 对应存放目录 source/js/custom.js
 # Specify the path of your custom js file, support list. The path is relative to the source directory, such as `/js/custom.js` corresponding to the directory `source/js/custom.js`
-custom_js:
+custom_js: /js/na23.js
 
 # 指定自定义 .css 文件路径，用法和 custom_js 相同
 # The usage is the same as custom_js
@@ -508,7 +508,7 @@ index:
   # 头图高度，屏幕百分比
   # Height ratio of banner image
   # Available: 0 - 100
-  banner_img_height: 100
+  banner_img_height: 60
 
   # 头图黑色蒙版的不透明度，available: 0 - 1.0，1 是完全不透明
   # Opacity of the banner mask, 1.0 is completely opaque
@@ -576,7 +576,7 @@ index:
 #---------------------------
 post:
   banner_img: /img/default.png
-  banner_img_height: 45
+  banner_img_height: 35
   banner_mask_alpha: 0.3
 
   # 文章在首页的默认封面图，当没有指定 index_img 时会使用该图片，若两者都为空则不显示任何图片
@@ -948,7 +948,7 @@ discuss:
 #---------------------------
 archive:
   banner_img: /img/default.png
-  banner_img_height: 40
+  banner_img_height: 30
   banner_mask_alpha: 0.3
 
 
@@ -959,7 +959,7 @@ archive:
 category:
   enable: true
   banner_img: /img/default.png
-  banner_img_height: 40
+  banner_img_height: 30
   banner_mask_alpha: 0.3
 
   # 分类的排序字段，前面带减号是倒序，不带减号是正序
@@ -988,14 +988,14 @@ category:
 tag:
   enable: true
   banner_img: /img/default.png
-  banner_img_height: 40
+  banner_img_height: 30
   banner_mask_alpha: 0.3
   tagcloud:
     min_font: 15
     max_font: 30
     unit: px
-    start_color: "#BBBBEE"
-    end_color: "#337ab7"
+    start_color: "#a88a55"
+    end_color: "#c93a3a"
 
 
 #---------------------------
@@ -1005,7 +1005,7 @@ tag:
 about:
   enable: true
   banner_img: /img/default.png
-  banner_img_height: 45
+  banner_img_height: 35
   banner_mask_alpha: 0.3
   avatar: /asset/default/avatar.jpg
   name: "Chiao"
@@ -1030,7 +1030,7 @@ about:
 #---------------------------
 page:
   banner_img: /img/default.png
-  banner_img_height: 40
+  banner_img_height: 30
   banner_mask_alpha: 0.3
 
 
@@ -1055,7 +1055,7 @@ page404:
 links:
   enable: true
   banner_img: /img/default.png
-  banner_img_height: 40
+  banner_img_height: 30
   banner_mask_alpha: 0.3
   # 友链的成员项
   # Member item of page
