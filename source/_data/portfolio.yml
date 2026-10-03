@@ -23,6 +23,18 @@
 
 # ---------- 個人作品 ----------
 
+- title: HAND SIGNAL
+  desc: 不用手把,對著鏡頭用手勢開飛船的街機小遊戲。
+  cover: /asset/portfolio/hand-signal.jpg
+  year: 2026
+  role: 設計、程式
+  featured: true
+  tags:
+    - 街機
+    - 手勢操作
+  links:
+    - { text: "遊玩", url: "https://na23dev.itch.io/hand-signal" }
+
 - title: AFTERGLOW
   desc: 走過的路會隨顏色褪去,路徑本身就是倒數的解謎遊戲。
   cover: /asset/portfolio/afterglow.jpg
@@ -42,7 +54,6 @@
   cover: /asset/portfolio/yours-to-take.png
   year: 2026
   role: 設計、程式
-  featured: true
   tags:
     - 平台跳躍
     - 多結局

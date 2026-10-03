@@ -23,6 +23,36 @@
 
 ---
 
+## 2026-10-04 — 新增作品 HAND SIGNAL,首頁精選改為 HAND SIGNAL 與 AFTERGLOW
+
+**做了什麼**
+
+- `source/_data/portfolio.yml`:個人作品最前面新增 HAND SIGNAL(https://na23dev.itch.io/hand-signal),設 `featured: true`
+- Yours to take 拿掉 `featured`。首頁精選現在是 HAND SIGNAL(第 1 個)、AFTERGLOW(第 2 個);Yours to take 仍在作品集,排在兩個精選之後
+- 封面:itch.io 的原圖(1260×1000 PNG,471 KB)存到 `asset/portfolio/hand-signal.png`;縮成 630×500、JPEG q86 後放 `source/asset/portfolio/hand-signal.jpg`(86 KB)
+
+**為什麼**
+
+- 使用者指定主打作品改成這兩個
+- 介紹句、年份、標籤取自 itch.io 頁面(2026-10-03 發布,類型 Action,標籤 Arcade、hand-tracking、webcam…)。卡片標籤只放玩法:`街機`、`手勢操作`
+- 介紹句原本寫了 31 個字,在首頁精選區會折成兩行、第二行只剩「遊戲。」,所以縮短
+
+**踩到的坑**
+
+- 這台電腦的專案資料夾沒有 `node_modules`,`npx hexo` 會去抓一個全域的 hexo 然後報 `Cannot find module 'hexo'`。跑一次 `npm ci` 就好
+
+**驗證了什麼**
+
+- 重建後 `public/index.html` 的精選資料依序是 HAND SIGNAL、AFTERGLOW;`public/portfolio/index.html` 有 7 張卡片,HAND SIGNAL 在最前
+- 截圖看過首頁與作品集,深色、淺色各一(1280px 寬)
+
+**還沒做 / 下次要做**
+
+- [ ] HAND SIGNAL 的 `role` 先寫「設計、程式」(比照 Yours to take),待使用者確認要不要加「美術」
+- [ ] 介紹句與標籤是依 itch.io 頁面代寫的,使用者可再調整
+
+---
+
 ## 2026-10-03 — 站名與署名統一為 NA23.Chiao
 
 **做了什麼**
