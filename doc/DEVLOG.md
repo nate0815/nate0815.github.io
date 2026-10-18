@@ -23,6 +23,45 @@
 
 ---
 
+## 2026-10-18 — 移植 doc-system-kit 的守則、收工檢查與分支流程
+
+**做了什麼**
+
+- 新增 `AGENTS.md` 當 AI 守則正本,原本 `CLAUDE.md` 的內容搬進去;`CLAUDE.md` 改成一行 `@AGENTS.md` 加 Claude 專屬補充
+- 新增「分支與發佈」規則:AI 的改動一律開分支 → PR → 使用者按 Merge;使用者自己發文照舊直推 `main`
+- 新增 `.github/workflows/build-check.yml`:PR 時只 build 不部署,並檢查首頁精選、CSS 版本號、作品集卡片、贊助按鈕四樣有產生出來
+- 新增收工檢查 `.agents/hooks/doc-sync-check.mjs`(由 `.claude/settings.json` 的 Stop hook 呼叫):改了程式/樣式/設定但 DEVLOG 沒動,就不讓 AI 結束這一輪。刻意不含 `source/_posts/`
+- 新增 doc-sync skill(`.agents/skills/doc-sync/SKILL.md` 正本 + `.claude/skills/` stub),路由表依本站的 DESIGN/TECH/WORKFLOW/DEVLOG 改寫
+- `.claude/settings.json` 讓 `doc/DESIGN.md` 的寫入一律跳確認框
+- 新增根目錄 `README.md`(只放指標);`.gitignore` 加 `.claude/settings.local.json`
+- WORKFLOW 新增「AI 開的 PR 怎麼合併」,最速查表加第 0 步 `git pull`;TECH 更新檔案結構、部署流程(含 build 檢查對照表)、新增一則坑
+- DESIGN「明確不做的事」加四列:kit 的 `stable`/tag/`demo`、DEVLOG 拆檔與 PLAN、Codex 接線、`main` 分支保護
+
+**為什麼**
+
+- 使用者更新了 doc-system-kit(加了分支模型、README 規範等),希望把適用的部分移植進來
+- 使用者選擇「AI 改的走 PR、自己發文直推」與「只用 Claude Code」
+- kit 的 `main`(開發)/`stable`(已發佈)兩條線,在這裡合成一條:`main` 一推就上線,所以 PR 才是「發佈前的檢查點」。build 檢查補的是 Hexo 的靜默失敗 —— 合併前就擋下「build 成功但頁面空了」
+- 不搬的部分理由寫在 DESIGN「明確不做的事」
+
+**踩到的坑**
+
+- 用 Git Bash 手動測 Stop hook 時,`cwd` 給 `$PWD`(`/d/...`)會讓腳本靜默放行。要用 `$(pwd -W)`。已寫進 TECH「已知的坑」
+- 先前 Ko-fi 那次推送被拒:GitHub 上有另一台電腦推的 commit。WORKFLOW 因此加了「先 `git pull`」
+
+**驗證了什麼**
+
+- Stop hook 的情境:有異動且 DEVLOG 沒動 → 擋;`stop_hook_active` → 放行;DEVLOG 有動 → 放行;只改文章 → 放行;改 `custom.css` → 擋
+- build 檢查的腳本在本機對 `public/` 跑過:正常時四項都 ok;拿掉 `about/index.html` 時正確報錯並回傳 1
+- 重建後 `public/` 不含 `AGENTS.md`、`README.md`(根目錄檔案不會發布)
+
+**還沒做 / 下次要做**
+
+- [ ] 重開 Claude Code session 後實測:改 `doc/DESIGN.md` 會跳確認框;收工檢查在真實 session 會擋
+- [ ] 第一個 PR 的 build 檢查在 GitHub 上實際跑過(就是這一輪的 PR)
+
+---
+
 ## 2026-10-18 — HAND SIGNAL 定位改為「手勢感應的小實驗」
 
 **做了什麼**
@@ -157,6 +196,7 @@
 
 需要使用者提供或決定:
 
+- [ ] 重開 Claude Code session,確認 DESIGN.md 寫入會跳確認框、收工檢查會擋(見 2026-10-18「移植 doc-system-kit」)
 - [ ] 綠界贊助網址(見 2026-10-18 段落;使用者銀行驗證中,只申請非信用卡與信用卡兩項金流)
 - [ ] 「關於」頁的 Email 圖示沒顯示(設定寫的 `icon-envelope-fill` 不存在)。待決定:改成 `icon-mail` 讓它顯示,或等換成對外專用信箱再處理
 - [ ] UwU、There Is No Loop 的 `role`,以及 UwU 的玩法標籤
