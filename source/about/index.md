@@ -29,3 +29,9 @@ date: 2026-08-05 22:42:42
 ## 聯絡
 
 想聊聊的話,可以從上面的Github圖示找到我。
+
+## 支持我
+
+如果這裡的文章或作品對你有幫助,歡迎請我喝杯咖啡。不需要註冊,金額隨意。
+
+<a class="na-support" href="https://ko-fi.com/na23chiao" target="_blank" rel="noopener">☕ 在 Ko-fi 支持我</a>

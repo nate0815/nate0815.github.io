@@ -503,6 +503,28 @@ a.pf-link:focus-visible {
   text-align: center;
 }
 
+/* ---------- 贊助按鈕(關於頁「支持我」) ----------
+   只是一般連結,不載入 Ko-fi 的浮動小工具。外觀與作品卡的主要按鈕一致 */
+a.na-support,
+a.na-support:hover {
+  display: inline-block;
+  padding: .4rem 1rem;
+  border: 2px solid var(--na-btn-line);
+  background: var(--na-btn-bg);
+  color: var(--na-btn-fg);
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+a.na-support:hover {
+  border-color: var(--na-acc);
+}
+
+a.na-support:focus-visible {
+  outline: 2px solid var(--na-acc);
+  outline-offset: 2px;
+}
+
 /* ---------- 主題圖示字型沒有的圖示 ----------
    itch.io:用 mask 套 SVG,顏色取 currentColor,
    所以深淺色模式與滑鼠懸停的顏色都會自動跟著連結變,不用另寫深色版 */
