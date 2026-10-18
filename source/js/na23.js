@@ -5,6 +5,7 @@
    1. 首頁頂部:由字元組成的站名招牌,游標掃過的筆畫會亮起再褪色
    2. 其他頁面頂部:游標留下會褪色的字元軌跡
    3. 首頁精選作品:換作品時封面碎成字元再重組
+   4. 頁尾:輝光管訪客計數器(GoatCounter)
 
    顏色全部取自 custom.css 的 --na-* 變數,深淺模式切換時自動跟著變。
    訪客的系統開了「減少動態效果」時,只顯示靜止畫面。
@@ -378,6 +379,119 @@
     if (toggle) toggle.setAttribute('title', '深色 / 淺色');
   }
   setupTranslate();
+
+  /* ---------- 頁尾:輝光管訪客計數器 ----------
+     模仿《命運石之門》的世界線變動率探測器,顯示累積訪客數。
+     補零到 7 位,訪客越多,前面的 0 被吃掉越多,這就是累積感。
+
+     會動的只有一件事:跟這位訪客上次看到的數字比,有變的那幾根管子
+     亂跳一下再停下來,意思是「你不在的時候有人來過」。
+     沒變就不動;第一次來的訪客整排跳一次。捲到頁尾才播,
+     減少動態效果時直接顯示。
+
+     數字來自 GoatCounter 的公開計數(對方最多快取 4 小時,不是即時的)。
+     本機預覽時可以在網址加 ?na-meter=347 用假數字看樣子 */
+  var METER_DIGITS = 7;
+  var METER_KEY = 'na-meter-last';
+
+  function mountMeter() {
+    var footer = document.querySelector('footer .footer-inner');
+    if (!footer) return;
+    var local = /^(localhost|127\.|\[::1\])/.test(location.hostname);
+    var mock = local && new URLSearchParams(location.search).get('na-meter');
+    if (mock) { renderMeter(footer, parseInt(mock, 10)); return; }
+
+    var tag = document.querySelector('script[data-goatcounter]');
+    if (!tag || !window.fetch) return;
+    var base = tag.getAttribute('data-goatcounter').replace(/\/count$/, '');
+    fetch(base + '/counter/TOTAL.json')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        /* count 是加了千分位的字串,例如 "1,234" */
+        var n = d && parseInt(String(d.count).replace(/\D/g, ''), 10);
+        if (n >= 0) renderMeter(footer, n);
+      })
+      .catch(function () { /* 讀不到就不顯示,不影響其他東西 */ });
+  }
+
+  function renderMeter(footer, n) {
+    if (!(n >= 0)) return;
+    var last = null;
+    try { last = parseInt(localStorage.getItem(METER_KEY), 10); } catch (e) { }
+    if (!(last >= 0)) last = null;
+    /* 對方的快取偶爾會拿到比上次舊的數字,只記最大的,也不倒退 */
+    if (last !== null && n < last) n = last;
+    try { localStorage.setItem(METER_KEY, String(n)); } catch (e) { }
+
+    var width = Math.max(METER_DIGITS, String(n).length);
+    var now = pad(n, width);
+    var was = last === null ? null : pad(last, width);
+
+    var box = document.createElement('div');
+    box.className = 'na-meter';
+    var label = document.createElement('span');
+    label.className = 'na-meter-label';
+    label.textContent = '累積訪客';
+    var row = document.createElement('span');
+    row.className = 'na-meter-tubes';
+    row.setAttribute('role', 'img');
+    row.setAttribute('aria-label', n + ' 位');
+    row.setAttribute('translate', 'no');
+    var tubes = [];
+    var moving = [];
+    for (var i = 0; i < width; i++) {
+      var t = document.createElement('span');
+      t.className = 'na-tube';
+      t.setAttribute('aria-hidden', 'true');
+      t.textContent = now[i];
+      row.appendChild(t);
+      tubes.push(t);
+      if (!was || was[i] !== now[i]) moving.push(i);
+    }
+    box.appendChild(label);
+    box.appendChild(row);
+    footer.appendChild(box);
+
+    if (reduce || !moving.length) return;
+    var played = false;
+    watchVisible(box, function (seen) {
+      if (!seen || played) return;
+      played = true;
+      shift(tubes, now, moving);
+    });
+  }
+
+  function pad(n, w) {
+    var s = String(n);
+    while (s.length < w) s = '0' + s;
+    return s;
+  }
+
+  /* 世界線變動:有變的管子亂跳,由左到右一根根停下 */
+  function shift(tubes, now, moving) {
+    var start = performance.now();
+    moving.forEach(function (i) { tubes[i].classList.add('is-shifting'); });
+    var timer = setInterval(function () {
+      var t = performance.now() - start;
+      var left = 0;
+      moving.forEach(function (i, k) {
+        var tube = tubes[i];
+        if (!tube.classList.contains('is-shifting')) return;
+        if (t > 500 + k * 140) {
+          tube.textContent = now[i];
+          tube.classList.remove('is-shifting');
+        } else {
+          tube.textContent = String(Math.floor(Math.random() * 10));
+          left++;
+        }
+      });
+      if (!left) clearInterval(timer);
+    }, 55);
+  }
+  /* GoatCounter 的 <script> 是 scripts/goatcounter.js 加在頁面最後面的,
+     比這個檔案晚出現,要等整頁讀完才找得到 */
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountMeter);
+  else mountMeter();
 
   /* ---------- 啟動 ---------- */
   var feat = document.getElementById('na-feat');
