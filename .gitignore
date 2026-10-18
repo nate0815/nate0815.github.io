@@ -6,3 +6,5 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+# 個人層的 Claude Code 權限記錄,不該進版控
+.claude/settings.local.json

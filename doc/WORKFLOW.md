@@ -2,13 +2,14 @@
 
 > 這份是給你自己看的操作手冊。要發新文章、改內容、加作品時,照著這裡做就好。
 >
-> 最後更新:2026-08-05
+> 最後更新:2026-10-18
 
 ---
 
 ## 🚀 最速查表
 
 ```bash
+git checkout main && git pull         # 0. 先把線上最新的版本抓下來(AI 的 PR 合併後一定要做)
 npx hexo new post "my-article-slug"   # 1. 建立文章(檔名用英文!)
 npx hexo server                        # 2. 本機預覽 http://localhost:4000
 git add .                              # 3. 確認沒問題後
@@ -198,6 +199,8 @@ gh run list --limit 3
 | build 失敗,訊息提到 YAML | 檢查 frontmatter 或 `portfolio.yml` 的縮排與冒號空格 |
 | 圖片顯示不出來 | 確認圖片在 `source/` 底下;確認檔名大小寫完全一致 |
 | 本機好好的,線上沒更新 | `gh run list` 看部署有沒有失敗;確認真的 `git push` 了 |
+| `git push` 被拒絕,訊息有 `git pull` | 線上有你電腦上沒有的新東西(通常是剛合併的 PR)。先 `git pull` 再 `git push` |
+| AI 開的 PR 出現紅色叉叉 | 不要合併。截圖給 AI 修 |
 | 線上還是舊的 | 等 1 分鐘,然後用 `Ctrl` + `F5` 強制重新整理清快取 |
 
 ---
@@ -221,7 +224,29 @@ gh run list --limit 3
 
 ---
 
-## 五、寫作習慣建議
+## 六、AI 開的 PR 怎麼合併
+
+AI 改網站的程式、樣式、設定或作品資料時,不會直接上線,而是開一個 **PR(Pull Request)** 給你看。
+你按下 Merge 之後才會上線。你自己發文章不用走這個流程。
+
+1. **打開 AI 給你的 PR 網址**(長得像 `https://github.com/nate0815/nate0815.github.io/pull/12`)。
+2. **看最下面的檢查結果**:
+   - 綠色勾勾 ✅ `Build check` → 網站能正常產生
+   - 紅色叉叉 ❌ → 先不要合併,把畫面截圖給 AI 修
+3. **想看改了什麼**:點上方的 **Files changed** 分頁。綠色是新增、紅色是刪除。看不懂沒關係,AI 會在 PR 說明裡用中文寫改了什麼。
+4. **確認要上線**:回到 **Conversation** 分頁,按綠色的 **Merge pull request** → **Confirm merge**。
+5. 合併後出現 **Delete branch** 按鈕,按下去把用完的分支刪掉。
+6. 約 40 秒後網站就更新了。
+
+> ⚠️ **合併之後,你電腦上的 `main` 就比線上舊了。** 下次自己發文前先跑
+> `git checkout main && git pull`(最速查表的第 0 步)。忘了的話 `git push` 會被拒絕,
+> 訊息裡有 `git pull` 字樣 —— 照做一次 `git pull` 再 `git push` 就好。
+
+**不想合併?** 在 PR 下面留言告訴 AI 要改什麼,或按 **Close pull request** 放棄。關掉的 PR 不會影響網站。
+
+---
+
+## 七、寫作習慣建議
 
 不是規定,是幾個會讓你比較不痛苦的做法:
 

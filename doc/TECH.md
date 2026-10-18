@@ -42,8 +42,17 @@ NA23_web/
 ├─ _config.fluid.yml        主題設定 ← 改外觀來這裡
 ├─ package.json             相依套件
 ├─ package-lock.json        版本鎖定,CI 用 npm ci 讀它,必須 commit
+├─ README.md                進站點:這是什麼、怎麼跑起來、文件在哪(只放指標)
+├─ AGENTS.md                給 AI 的工作守則正本(CLAUDE.md 只是匯入它)
+├─ .agents/
+│  ├─ hooks/doc-sync-check.mjs   收工檢查:改了程式/設定但 DEVLOG 沒動就不讓 AI 結束
+│  └─ skills/doc-sync/SKILL.md   回填文件的流程與路由表
+├─ .claude/
+│  ├─ settings.json         DESIGN.md 寫入要確認 + 註冊收工檢查
+│  └─ skills/doc-sync/      指回 .agents/ 正本的 stub
 ├─ .github/workflows/
-│  └─ deploy.yml            自動部署流程
+│  ├─ deploy.yml            推上 main → 自動部署
+│  └─ build-check.yml       PR → 只 build 並檢查頁面,不部署
 ├─ scripts/
 │  ├─ portfolio.js          作品集卡片的 Hexo tag 外掛
 │  ├─ home-feature.js       首頁「精選作品」區塊(after_render:html filter)
@@ -145,6 +154,10 @@ Fluid 的圖示來自兩份圖示字型,可用的名稱以[官方圖示表](http
 
 解法:`Ctrl+C` 關掉 server 再重跑 `npx hexo server`。`hexo generate` 與線上部署不受影響。
 
+**Stop hook 的路徑在 Windows 上要用 `pwd -W` 測**
+
+手動測 `.agents/hooks/doc-sync-check.mjs` 時,Git Bash 的 `$PWD` 是 `/d/2026_Practice/...`,Node 認不得,`git -C` 會失敗、腳本就靜默放行,看起來像「沒擋」。測試指令的 `cwd` 要用 `$(pwd -W)`(得到 `D:/2026_Practice/...`)。Claude Code 實際呼叫時傳的是 Windows 路徑,不受影響。
+
 **PowerShell 5.1 讀 `.ps1` 檔預設用 ANSI 編碼**
 
 輔助腳本裡若含中文,會被解碼成亂碼並造成語法錯誤。**工具腳本一律寫純英文**,或存成 UTF-8 with BOM。
@@ -211,6 +224,19 @@ gh run watch <run-id>      # 盯著某次部署跑完
 
 `git push` 到 `main` → GitHub Actions 觸發 → `npm ci` → `npx hexo generate` → 上傳 `public/` → 部署到 Pages。全程約 40 秒。
 
+**`main` 就是線上版**,所以 AI 的改動走分支 + PR,使用者按 Merge 才上線(規則見 [AGENTS.md](../AGENTS.md)「分支與發佈」;使用者的操作見 WORKFLOW「AI 開的 PR 怎麼合併」)。
+
+**PR 的 build 檢查**(`build-check.yml`):跑同樣的 `npm ci` + `hexo generate`,再檢查幾個「壞掉時會悄悄消失」的東西有沒有產生出來:
+
+| 檢查 | 對應的靜默失敗 |
+|---|---|
+| `public/index.html` 含 `na-feat` | 首頁精選作品沒產生(`home-feature.js` 讀不到資料) |
+| `public/index.html` 含 `custom.css?v=` | `cache-bust.js` 沒作用,訪客會拿到舊 CSS |
+| `public/portfolio/index.html` 含 `class="pf-card` | 作品集卡片是空的(見下方「Hexo tag 外掛裡取不到 `this.site.data`」) |
+| `public/about/index.html` 含 `class="na-support` | 關於頁的贊助按鈕不見 |
+
+新增一個「壞了不會報錯」的元件時,在這張表與 workflow 裡各加一列。
+
 `.github/workflows/deploy.yml` 使用的 action 版本(2026-08 更新):
 
 | Action | 版本 |
@@ -275,6 +301,8 @@ permissions:
 ---
 
 ## 7. 給 AI 助手的提示
+
+> 守則正本已移到根目錄的 [AGENTS.md](../AGENTS.md)(含分支、回填、commit 的規矩)。下面幾條是摘要,兩邊不一致時以 AGENTS.md 為準。
 
 要在這個專案工作時:
 
