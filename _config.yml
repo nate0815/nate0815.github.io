@@ -107,6 +107,11 @@ theme: fluid
 ## 主題的設定寫在根目錄的 _config.fluid.yml,不要去改 themes/ 或 node_modules 裡的檔案,
 ## 這樣主題升級時你的設定才不會被覆蓋。
 
+# 訪客計數(GoatCounter)
+## 填 goatcounter.com 註冊時取的代碼(網址 xxx.goatcounter.com 的 xxx)。
+## 留空 = 不計數,頁尾的計數器也不顯示。見 scripts/goatcounter.js
+goatcounter: na23
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:

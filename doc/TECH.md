@@ -57,6 +57,7 @@ NA23_web/
 │  ├─ portfolio.js          作品集卡片的 Hexo tag 外掛
 │  ├─ home-feature.js       首頁「精選作品」區塊(after_render:html filter)
 │  ├─ cache-bust.js         替 custom.css / na23.js 的網址加上版本號
+│  ├─ goatcounter.js        依 _config.yml 的 goatcounter 代碼,在每頁加上 GoatCounter 計數程式
 │  └─ translate-links.js    替選單的翻譯連結加上 data-na-tl(語言)與 translate="no"
 ├─ source/                  ★ 只有這個資料夾底下的東西會被發布
 │  ├─ _posts/               文章
@@ -64,7 +65,7 @@ NA23_web/
 │  ├─ about/index.md        關於頁
 │  ├─ portfolio/index.md    作品集頁(內容只有一行 {% portfolio %})
 │  ├─ css/custom.css        自訂樣式(顏色變數 --na-* 都在最上面)
-│  ├─ js/na23.js            自訂互動:字元招牌、游標軌跡、精選作品換圖
+│  ├─ js/na23.js            自訂互動:字元招牌、游標軌跡、精選作品換圖、頁尾計數器
 │  ├─ asset/default/        站台通用圖(頭像、favicon、自訂圖示 SVG)
 │  └─ asset/font/           自己託管的字型檔(VT323)
 ├─ asset/                   原圖備份,不發布
@@ -119,6 +120,15 @@ Google 翻譯代理是由 Google 的伺服器去抓網頁,它連不到 `localhos
 **手機寬度的截圖與「打開選單」**
 
 沿用舊的 iframe 做法,但把包裝用的 HTML 暫時放進 `public/`(build 產物,不進版控),讓它和網站同源,才能用 script 去點 iframe 裡的漢堡按鈕。點之前先注入一段把選單 transition 關掉的樣式,否則 headless 會截到動畫一半、看起來像半透明。截完記得把暫存檔刪掉。
+
+**訪客計數器(GoatCounter)**
+
+- 帳號代碼 `na23`,後台 https://na23.goatcounter.com 。代碼寫在 `_config.yml` 的 `goatcounter`,留空就不計數也不顯示
+- 網站讀的是公開計數 `https://na23.goatcounter.com/counter/TOTAL.json`,回傳的 `count` 是**加了千分位的字串**(`"1,234"`)。要在後台 Settings 勾選 *Allow adding visitor counts on your website* 才讀得到,沒勾會回 400,計數器就不顯示
+- **公開計數最多快取 4 小時**,自己剛逛過數字不會馬上變,不是壞了
+- GoatCounter 會略過 localhost,本機預覽不會灌水,但會讀到線上的真實數字。想看其他數字的樣子,網址加 `?na-meter=347`(只在本機有效)
+- GoatCounter 的 `<script>` 是加在頁面最後面的,比 `na23.js` 晚出現。`na23.js` 要等 `DOMContentLoaded` 才去找它,否則會找不到、計數器靜靜地不出現
+- 回訪時哪幾根管子要跳,是跟訪客瀏覽器 localStorage 裡的 `na-meter-last` 比。用 headless 截圖時每次換一個 `--user-data-dir` 就是「第一次來」;而且要把視窗拉高到看得見頁尾,動畫才會播
 
 **字元 shader 的顏色不在 JS 裡**
 
@@ -292,6 +302,7 @@ permissions:
 
 ### 之後可能會用到
 
+- **GoatCounter 公開計數說明** — https://www.goatcounter.com/help/visitor-counter
 - **giscus(留言系統)** — https://giscus.app/zh-TW
 - **hexo-generator-sitemap** — https://github.com/hexojs/hexo-generator-sitemap
 - **hexo-generator-feed(RSS)** — https://github.com/hexojs/hexo-generator-feed

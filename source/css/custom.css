@@ -46,6 +46,14 @@
   --na-btn-fg: #fffdf5;
   --na-btn-line: #4a4e69;
   --na-scan: none;
+
+  /* 頁尾的輝光管計數器:管子在兩種模式都是暗色玻璃加橘光(那才像輝光管),
+     淺色模式只把外框換成深藍硬邊,配合紙張風格 */
+  --na-tube-bg: radial-gradient(ellipse at 50% 40%, rgba(255, 110, 30, .16), transparent 70%), linear-gradient(#1d1610, #0a0806);
+  --na-tube-edge: #4a4e69;
+  --na-tube-fg: #ffb071;
+  --na-tube-glow: 0 0 2px #ff8a3c, 0 0 6px rgba(255, 90, 20, .8);
+  --na-tube-ghost: rgba(255, 138, 60, .08);
 }
 
 /* Fluid 切換深色模式時會在 <html> 加上 data-user-color-scheme="dark" */
@@ -72,6 +80,13 @@
   --na-btn-fg: #3fe0b5;
   --na-btn-line: #3fe0b5;
   --na-scan: repeating-linear-gradient(0deg, rgba(0, 0, 0, .3) 0 1px, transparent 1px 3px);
+
+  /* 深色模式的背景已經是暗的:外框融進背景,光放大一點 */
+  --na-tube-bg: radial-gradient(ellipse at 50% 40%, rgba(255, 110, 30, .14), transparent 70%), linear-gradient(#17110a, #080604);
+  --na-tube-edge: #3a2c14;
+  --na-tube-fg: #ffb071;
+  --na-tube-glow: 0 0 2px #ff8a3c, 0 0 7px rgba(255, 90, 20, .85), 0 0 14px rgba(255, 70, 0, .35);
+  --na-tube-ghost: rgba(255, 138, 60, .07);
 }
 
 /* ---------- 導覽列 ----------
@@ -599,6 +614,56 @@ a.na-support:focus-visible {
     width: 44px;
     height: 44px;
   }
+}
+
+/* ---------- 頁尾:輝光管訪客計數器 ----------
+   na23.js 產生 .na-meter,接在頁尾 © 那行下面。小字、淡色,不搶內容的焦點 */
+.na-meter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .6rem;
+  margin-top: .6rem;
+  color: var(--na-mute);
+  font-size: .8rem;
+}
+
+.na-meter-tubes {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.na-tube {
+  position: relative;
+  display: inline-block;
+  width: 1.05rem;
+  height: 1.6rem;
+  border: 1px solid var(--na-tube-edge);
+  border-radius: .55rem .55rem .2rem .2rem;
+  background: var(--na-tube-bg);
+  color: var(--na-tube-fg);
+  /* 與招牌、導覽列同一套像素字(VT323) */
+  font-family: var(--na-term);
+  font-size: 1.15rem;
+  line-height: 1.6rem;
+  text-align: center;
+  text-shadow: var(--na-tube-glow);
+  isolation: isolate;
+}
+
+/* 管子裡疊著其他沒亮的陰極,用一個很淡的 8 代表 */
+.na-tube::before {
+  content: "8";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: var(--na-tube-ghost);
+  text-shadow: none;
+}
+
+.na-tube.is-shifting {
+  opacity: .75;
 }
 
 /* ---------- 動態效果 ---------- */
